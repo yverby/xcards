@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useToggle } from '@mantine/hooks';
 import { Carousel } from '@mantine/carousel';
 import { rem, Title, Transition } from '@mantine/core';
 
@@ -16,26 +17,16 @@ export function CardStack() {
   const { classes } = useStyles();
 
   const [active, setActive] = useState(0);
-  const [[card], setCards] = useState(() => range(10));
-
-  const handleChangeSlide = (slide: number) => {
-    setActive(() => slide);
-    setCards((cards) => cards.slice(1).concat(cards[0]));
-  };
+  const [card, setCard] = useToggle(range(10));
 
   return (
-    <Carousel
-      loop
-      withControls={false}
-      className={classes.slider}
-      onSlideChange={handleChangeSlide}
-    >
+    <Carousel loop withControls={false} className={classes.slider} onSlideChange={setActive}>
       {range(2).map((slide) => (
         <Carousel.Slide key={slide} className={classes.slide}>
-          <Transition mounted={slide === active} transition="fade">
+          <Transition mounted={slide === active} transition="fade" onEnter={setCard}>
             {(style) => (
-              <Card p="xl" maw={rem(600)} mah={rem(800)} style={style}>
-                <Title>#{card}</Title>
+              <Card maw={rem(600)} mah={rem(800)} style={style}>
+                {slide === active && <Title p="xl">#{card}</Title>}
               </Card>
             )}
           </Transition>

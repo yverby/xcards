@@ -13,7 +13,7 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: STORAGE.KEYS.SCHEME,
-    defaultValue: 'light',
+    defaultValue: 'dark',
   });
 
   const toggleColorScheme = (scheme: ColorScheme) => {

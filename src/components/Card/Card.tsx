@@ -1,23 +1,38 @@
-import { ReactNode } from 'react';
-import { Box, Selectors, DefaultProps } from '@mantine/core';
+import { forwardRef, ReactNode } from 'react';
+import {
+  Box,
+  ScrollArea,
+  Selectors,
+  DefaultProps,
+  ScrollAreaProps,
+  createPolymorphicComponent,
+} from '@mantine/core';
 
 import { useStyles } from './Card.styles';
 
-interface CardProps extends DefaultProps<Selectors<typeof useStyles>> {
+type CardStylesNames = Exclude<Selectors<typeof useStyles>, 'scrollbar'>;
+
+interface CardProps extends Omit<DefaultProps<CardStylesNames>, 'unstyled'> {
   children: ReactNode;
+  scrollAreaProps?: ScrollAreaProps;
 }
 
-export function Card({ styles, children, unstyled, className, classNames, ...props }: CardProps) {
-  const { cx, classes } = useStyles(undefined, {
-    name: 'Card',
-    styles,
-    unstyled,
-    classNames,
-  });
+export const Card = createPolymorphicComponent<'div', CardProps>(
+  forwardRef<HTMLDivElement, CardProps>(
+    ({ styles, children, className, classNames, scrollAreaProps, ...props }, ref) => {
+      const { cx, classes } = useStyles(undefined, {
+        name: 'Card',
+        styles,
+        classNames,
+      });
 
-  return (
-    <Box component="article" {...props} className={cx(classes.root, className)}>
-      {children}
-    </Box>
-  );
-}
+      return (
+        <Box {...props} ref={ref} className={cx(classes.root, className)}>
+          <ScrollArea h="100%" classNames={{ scrollbar: classes.scrollbar }} {...scrollAreaProps}>
+            {children}
+          </ScrollArea>
+        </Box>
+      );
+    }
+  )
+);
