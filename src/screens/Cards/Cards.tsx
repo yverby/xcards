@@ -5,7 +5,7 @@ import { rem, Title, Transition } from '@mantine/core';
 
 import { Card } from '@src/components';
 
-import { useStyles } from './CardStack.styles';
+import { useStyles } from './Cards.styles';
 
 function range(amount: number) {
   return Array(amount)
@@ -13,7 +13,7 @@ function range(amount: number) {
     .map((_, index) => index);
 }
 
-export function CardStack() {
+export function Cards() {
   const { classes } = useStyles();
 
   const [active, setActive] = useState(0);
@@ -26,7 +26,11 @@ export function CardStack() {
           <Transition mounted={slide === active} transition="fade" onEnter={setCard}>
             {(style) => (
               <Card maw={rem(600)} mah={rem(800)} style={style}>
-                {slide === active && <Title p="xl">#{card}</Title>}
+                {slide === active && (
+                  <Title p="xl" sx={{ userSelect: 'none' }}>
+                    #{card}
+                  </Title>
+                )}
               </Card>
             )}
           </Transition>
