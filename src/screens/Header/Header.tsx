@@ -4,10 +4,10 @@ import { useContentStore } from '@src/stores';
 import { select, shallow } from '@src/utils/store';
 
 export function Header() {
-  const content = useContentStore(select(['fetch']), shallow);
+  const content = useContentStore(select(['fetchRoot']), shallow);
 
   useEffect(() => {
-    content.fetch('EN');
+    content.fetchRoot('EN');
   }, []);
 
   return null;

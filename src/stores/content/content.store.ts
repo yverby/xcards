@@ -5,37 +5,39 @@ import remark from 'remark-parse';
 
 import { API } from '@src/constants';
 
-interface ContentStore {
+interface ContentState {
   root: Root | null;
-  data: string | null;
   error: any;
   loading: boolean;
-  fetch: (locale: keyof typeof API.CONTENT) => void;
 }
 
-const initial = {
+interface ContentActions {
+  fetchRoot: (locale: keyof typeof API.CONTENT) => void;
+}
+
+const defaultState: ContentState = {
   root: null,
-  data: null,
   error: null,
   loading: false,
 };
 
-export const useContentStore = create<ContentStore>((set) => ({
-  ...initial,
-  async fetch(locale) {
-    set(() => ({ ...initial, loading: true }));
+export const useContentStore = create<ContentState & ContentActions>((set) => ({
+  ...defaultState,
+  async fetchRoot(locale) {
+    set(() => ({ ...defaultState, loading: true }));
 
     try {
-      const data = await (await fetch(API.CONTENT[locale])).text();
-      const root = unified().use(remark).parse(data);
+      const res = await fetch(API.CONTENT[locale]);
+      const text = await res.text();
+      const root = unified().use(remark).parse(text);
 
-      if (data.startsWith('404')) {
+      if (text.startsWith('404')) {
         throw new Error();
       }
 
-      set(() => ({ ...initial, data, root }));
+      set(() => ({ ...defaultState, root }));
     } catch (error) {
-      set(() => ({ ...initial, error }));
+      set(() => ({ ...defaultState, error }));
     }
   },
 }));

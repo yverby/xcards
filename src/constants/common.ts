@@ -1,1 +1,1 @@
-export const NAME = 'XCARDS';
+export const NAME = 'xcards';
