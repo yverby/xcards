@@ -1,41 +1,37 @@
-import { useState } from 'react';
-import { useToggle } from '@mantine/hooks';
-import { Carousel } from '@mantine/carousel';
-import { rem, Title, Transition } from '@mantine/core';
+import { useEffect } from 'react';
+import { Center, Loader, Title } from '@mantine/core';
 
-import { Card } from '@src/components';
+import { useCardsStore, useContentStore } from '@src/stores';
 
-import { useStyles } from './Cards.styles';
-
-function range(amount: number) {
-  return Array(amount)
-    .fill(null)
-    .map((_, index) => index);
-}
+import { CardsList } from './CardsList';
 
 export function Cards() {
-  const { classes } = useStyles();
+  const content = useContentStore();
+  const setList = useCardsStore((state) => state.setList);
 
-  const [active, setActive] = useState(0);
-  const [card, setCard] = useToggle(range(10));
+  useEffect(() => {
+    content.fetchRoot('EN');
+  }, []);
 
-  return (
-    <Carousel loop withControls={false} className={classes.slider} onSlideChange={setActive}>
-      {range(2).map((slide) => (
-        <Carousel.Slide key={slide} className={classes.slide}>
-          <Transition mounted={slide === active} transition="fade" onEnter={setCard}>
-            {(style) => (
-              <Card maw={rem(600)} mah={rem(800)} style={style}>
-                {slide === active && (
-                  <Title p="xl" sx={{ userSelect: 'none' }}>
-                    #{card}
-                  </Title>
-                )}
-              </Card>
-            )}
-          </Transition>
-        </Carousel.Slide>
-      ))}
-    </Carousel>
-  );
+  useEffect(() => {
+    content.root && setList(content.root);
+  }, [content.root]);
+
+  if (content.loading) {
+    return (
+      <Center h="100%">
+        <Loader color="gray" />
+      </Center>
+    );
+  }
+
+  if (content.error) {
+    return (
+      <Center h="100%">
+        <Title>Oops!</Title>
+      </Center>
+    );
+  }
+
+  return <CardsList />;
 }

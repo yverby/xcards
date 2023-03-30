@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
-  slider: {
+  list: {
     width: '100%',
     height: '100%',
 
@@ -10,7 +10,7 @@ export const useStyles = createStyles((theme) => ({
       height: 'inherit',
     },
   },
-  slide: {
+  item: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
