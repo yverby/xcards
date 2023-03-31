@@ -4,7 +4,7 @@ import { rem, Title, Transition } from '@mantine/core';
 
 import { Card } from '@src/components';
 import { useCardsStore } from '@src/stores';
-import { select, shallow } from '@src/utils/store';
+import { select, shallow } from '@src/lib/store';
 
 import { useStyles } from './CardsList.styles';
 
@@ -23,7 +23,12 @@ export function CardsList() {
     <Carousel loop withControls={false} className={classes.list} onSlideChange={setActive}>
       {[0, 1].map((slide) => (
         <Carousel.Slide key={slide} className={classes.item}>
-          <Transition mounted={slide === active} transition="fade" onEnter={shiftList}>
+          <Transition
+            duration={500}
+            transition="fade"
+            onEnter={shiftList}
+            mounted={slide === active}
+          >
             {(style) => (
               <Card maw={rem(600)} mah={rem(800)} style={style}>
                 {slide === active && <Title p="xl">#{id}</Title>}
