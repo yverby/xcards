@@ -54,3 +54,13 @@ export function createContentParser<E extends Elements>(elements: E) {
 
   return { getJSX, getString };
 }
+
+export const defaultContentElements: Elements = {
+  code: 'pre',
+  text: 'span',
+  heading: 'h3',
+  emphasis: 'em',
+  paragraph: 'p',
+  strong: 'strong',
+  inlineCode: 'code',
+};

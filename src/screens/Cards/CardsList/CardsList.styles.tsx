@@ -14,6 +14,6 @@ export const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: theme.spacing.xl,
+    padding: `0 ${theme.spacing.xl}`,
   },
 }));

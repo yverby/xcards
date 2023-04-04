@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Center, Loader, Title } from '@mantine/core';
 
-import { useCardsStore, useContentStore } from '@src/stores';
+import { useCardsStore } from '@src/stores/cards';
+import { useContentStore } from '@src/stores/content';
 
 import { CardsList } from './CardsList';
 

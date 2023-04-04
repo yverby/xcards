@@ -1,4 +1,6 @@
-import { ColorScheme, MantineThemeOverride } from '@mantine/core';
+import { rem, ColorScheme, MantineThemeOverride } from '@mantine/core';
+
+import { cs } from './variables';
 
 export function configureTheme({
   colorScheme,
@@ -7,12 +9,21 @@ export function configureTheme({
 }): MantineThemeOverride {
   return {
     colorScheme,
+    defaultRadius: 'md',
+    radius: { md: rem(12) },
     globalStyles(theme) {
       return {
         body: {
-          ...(colorScheme === 'light' && { backgroundColor: theme.colors.gray[2] }),
+          backgroundColor: theme.other.vars.cs(theme, 'bg'),
         },
       };
+    },
+    other: {
+      vars: {
+        cs(theme, key) {
+          return cs[key][colorScheme](theme);
+        },
+      },
     },
   };
 }

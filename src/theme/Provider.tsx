@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { MantineProvider } from '@mantine/core';
 
-import { useSettingsStore } from '@src/stores';
+import { useSettingsStore } from '@src/stores/settings';
 
 import { configureTheme } from './config';
 

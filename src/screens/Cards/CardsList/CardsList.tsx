@@ -1,50 +1,51 @@
 import { useMemo, useState } from 'react';
+import { Prism } from '@mantine/prism';
+import { Code, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import { rem, Title, Transition } from '@mantine/core';
 
-import { Card } from '@src/components';
-import { useCardsStore } from '@src/stores';
+import { partition } from '@src/lib/common';
 import { select, shallow } from '@src/lib/store';
-import { createContentParser } from '@src/lib/content';
+import { useCardsStore } from '@src/stores/cards';
+import { createContentParser, defaultContentElements } from '@src/lib/content';
+
+import { CardsItem } from './CardsItem';
 
 import { useStyles } from './CardsList.styles';
 
 const parser = createContentParser({
-  text: 'span',
-  heading: 'h2',
+  ...defaultContentElements,
+  inlineCode: (props) => <Code>{props.children}</Code>,
+  heading: (props) => <Title order={3}>{props.children}</Title>,
+  code: (props) => (
+    <Prism noCopy language={props.lang} scrollAreaComponent="div">
+      {props.children}
+    </Prism>
+  ),
 });
 
 export function CardsList() {
   const { classes } = useStyles();
 
   const [active, setActive] = useState(0);
-  const cards = useCardsStore(select(['list', 'shiftList']), shallow);
+  const { list, shiftList } = useCardsStore(select(['list', 'shiftList']), shallow);
 
   const card = useMemo(() => {
-    const [[content = []]] = cards.list;
-    const title = content.slice(0, 1);
+    const [[content = []]] = list;
+    const [head, main] = partition(content, (node) => ['heading', 'list'].includes(node.type));
+    const title = head.filter((node) => node.type === 'heading');
 
     return {
       id: parseInt(parser.getString(title), 10),
+      main: parser.getJSX(main),
+      title: parser.getJSX(title),
     };
-  }, [cards.list]);
+  }, [list]);
 
   return (
     <Carousel loop withControls={false} className={classes.list} onSlideChange={setActive}>
       {[0, 1].map((slide) => (
         <Carousel.Slide key={slide} className={classes.item}>
-          <Transition
-            duration={500}
-            transition="fade"
-            onEnter={cards.shiftList}
-            mounted={slide === active}
-          >
-            {(style) => (
-              <Card maw={rem(600)} mah={rem(800)} style={style}>
-                {slide === active && <Title p="xl">#{card.id}</Title>}
-              </Card>
-            )}
-          </Transition>
+          <CardsItem {...card} mounted={slide === active} onMounted={shiftList} />
         </Carousel.Slide>
       ))}
     </Carousel>
