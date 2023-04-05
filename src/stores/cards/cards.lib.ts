@@ -24,3 +24,21 @@ export function sliceRoot({ children: content }: Root) {
     [[[]]]
   );
 }
+
+export function sliceItem(item: Content[][]) {
+  const [visible = [], invisible = []] = item;
+
+  const titleIndex = visible.findIndex((node) => node.type === 'heading');
+  const optionsIndex = visible.findLastIndex((node) => node.type === 'list');
+
+  const title = visible.slice(titleIndex, titleIndex + 1);
+  const main = visible.slice(titleIndex + 1, optionsIndex);
+  const options = visible.slice(optionsIndex, optionsIndex + 1);
+
+  const optionIndex = invisible.findIndex((node) => node.type === 'heading');
+
+  const details = invisible.slice(optionIndex + 1);
+  const option = invisible.slice(optionIndex, optionIndex + 1);
+
+  return { main, title, option, options, details };
+}

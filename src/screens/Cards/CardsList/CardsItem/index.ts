@@ -1,1 +1,0 @@
-export { CardsItem } from './CardsItem';
