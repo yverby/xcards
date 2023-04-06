@@ -1,15 +1,15 @@
 import { useContext, createContext } from 'react';
 
-import { sliceItem } from '@src/stores/cards';
+import { groupCard } from '@src/stores/cards';
 
-export type CardContent = ReturnType<typeof sliceItem>;
+export type CardContent = ReturnType<typeof groupCard>;
 
-const CardContext = createContext<CardContent>(
-  ['main', 'title', 'option', 'options', 'details'].reduce(
-    (acc, item) => ({ ...acc, [item]: [] }),
-    {} as CardContent
-  )
+export const defaultValue = ['main', 'title', 'option', 'options', 'details'].reduce(
+  (acc, item) => ({ ...acc, [item]: [] }),
+  {} as CardContent
 );
+
+const CardContext = createContext<CardContent>(defaultValue);
 
 export const useCard = () => useContext(CardContext);
 export const { Provider: CardProvider } = CardContext;

@@ -1,44 +1,43 @@
 import { Root, Content } from 'mdast';
 
-export function sliceRoot({ children: content }: Root) {
-  const start = content.findIndex((node) => node.type === 'heading' && node.depth === 6);
+export function splitRoot({ children: content }: Root) {
+  return content
+    .filter((node) => node.type !== 'thematicBreak')
+    .filter((node) => !(node.type === 'html' && node.value.includes('details')))
+    .reduce<Content[][][]>(
+      (slices, node) => {
+        const slice = slices.at(-1)!;
+        const subslice = slice.at(-1)!;
 
-  return content.slice(start).reduce<Content[][][]>(
-    (slices, node) => {
-      const slice = slices.at(-1)!;
-      const subslice = slice.at(-1)!;
+        if (node.type === 'heading' && node.depth === 6) {
+          slices.push([[node]]);
+          return slices;
+        }
 
-      if (node.type === 'thematicBreak') {
-        slices.push([[]]);
+        if (node.type === 'heading' && node.depth === 4) {
+          slice.push([node]);
+          return slices;
+        }
+
+        subslice.push(node);
         return slices;
-      }
-
-      if (node.type === 'html' && node.value.includes('details')) {
-        slice.length < 2 && slice.push([]);
-        return slices;
-      }
-
-      subslice.push(node);
-      return slices;
-    },
-    [[[]]]
-  );
+      },
+      [[[]]]
+    );
 }
 
-export function sliceItem(item: Content[][]) {
-  const [visible = [], invisible = []] = item;
+export function groupCard(item: Content[][]) {
+  const [head = [], tail = []] = item;
 
-  const titleIndex = visible.findIndex((node) => node.type === 'heading');
-  const optionsIndex = visible.findLastIndex((node) => node.type === 'list');
+  const title = head.findIndex((node) => node.type === 'heading');
+  const option = tail.findIndex((node) => node.type === 'heading');
+  const options = head.findLastIndex((node) => node.type === 'list');
 
-  const title = visible.slice(titleIndex, titleIndex + 1);
-  const main = visible.slice(titleIndex + 1, optionsIndex);
-  const options = visible.slice(optionsIndex, optionsIndex + 1);
-
-  const optionIndex = invisible.findIndex((node) => node.type === 'heading');
-
-  const details = invisible.slice(optionIndex + 1);
-  const option = invisible.slice(optionIndex, optionIndex + 1);
-
-  return { main, title, option, options, details };
+  return {
+    details: tail.slice(option + 1),
+    title: head.slice(title, title + 1),
+    main: head.slice(title + 1, options),
+    option: tail.slice(option, option + 1),
+    options: head.slice(options, options + 1),
+  };
 }

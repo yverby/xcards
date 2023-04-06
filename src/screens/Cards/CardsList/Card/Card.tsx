@@ -6,7 +6,7 @@ import { CardTitle } from './CardTitle';
 import { CardHeader } from './CardHeader';
 
 import { useStyles } from './Card.styles';
-import { CardProvider, CardContent } from './Card.context';
+import { CardProvider, CardContent, defaultValue } from './Card.context';
 
 interface CardProps extends CardContent {
   mounted: boolean;
@@ -21,7 +21,7 @@ export function Card({ mounted, children, onMounted, ...value }: CardProps) {
     <Transition mounted={mounted} duration={500} transition="fade" onEnter={onMounted}>
       {(styles) => (
         <Box component="article" style={styles} className={classes.card}>
-          {mounted && <CardProvider value={value}>{children}</CardProvider>}
+          <CardProvider value={{ ...defaultValue, ...value }}>{mounted && children}</CardProvider>
         </Box>
       )}
     </Transition>

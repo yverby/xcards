@@ -1,7 +1,7 @@
 import { Root } from 'mdast';
 import { create } from 'zustand';
 import { unified } from 'unified';
-import remark from 'remark-parse';
+import remarkParse from 'remark-parse';
 
 import { API } from '@src/constants';
 
@@ -29,11 +29,14 @@ export const useContentStore = create<ContentState & ContentActions>((set) => ({
     try {
       const res = await fetch(API.CONTENT[locale]);
       const text = await res.text();
-      const root = unified().use(remark).parse(text);
 
       if (text.startsWith('404')) {
         throw new Error();
       }
+
+      const root = unified()
+        .use(remarkParse)
+        .parse(text.slice(text.indexOf('######') + 1));
 
       set(() => ({ ...defaultState, root }));
     } catch (error) {

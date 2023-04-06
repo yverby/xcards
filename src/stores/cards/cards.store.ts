@@ -1,10 +1,10 @@
 import { Root } from 'mdast';
 import { create } from 'zustand';
 
-import { sliceRoot } from './cards.lib';
+import { splitRoot, groupCard } from './cards.lib';
 
 interface CardsState {
-  list: ReturnType<typeof sliceRoot>;
+  list: ReturnType<typeof groupCard>[];
 }
 
 interface CardsActions {
@@ -13,7 +13,7 @@ interface CardsActions {
 }
 
 const defaultState: CardsState = {
-  list: [[[]]],
+  list: [],
 };
 
 export const useCardsStore = create<CardsState & CardsActions>((set) => ({
@@ -25,7 +25,7 @@ export const useCardsStore = create<CardsState & CardsActions>((set) => ({
   },
   setList(root) {
     set(() => ({
-      list: sliceRoot(root),
+      list: splitRoot(root).map((item) => groupCard(item)),
     }));
   },
 }));

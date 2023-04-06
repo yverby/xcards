@@ -17,9 +17,6 @@ export const useStyles = createStyles((theme) => {
       backgroundColor,
       overflow: 'hidden',
       overflowY: 'auto',
-      p: {
-        margin: 0,
-      },
     },
     header: {
       position: 'sticky',

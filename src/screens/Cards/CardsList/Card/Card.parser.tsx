@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Prism } from '@mantine/prism';
 import { Code, List, Title } from '@mantine/core';
 
@@ -32,7 +33,7 @@ function ContentListItem(props: any) {
 }
 
 export const cardParser = createContentParser({
-  text: 'span',
+  text: Fragment,
   emphasis: 'em',
   paragraph: 'p',
   strong: 'strong',
