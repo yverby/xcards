@@ -1,11 +1,9 @@
-import { MantineTheme } from '@mantine/core';
+import '@mantine/core';
 
-import { cs } from '@src/theme/variables';
+import { createColors } from '@src/theme/variables';
 
 declare module '@mantine/core' {
   export interface MantineThemeOther {
-    vars: {
-      cs: (theme: MantineTheme, key: keyof typeof cs) => any;
-    };
+    colors: ReturnType<typeof createColors>;
   }
 }

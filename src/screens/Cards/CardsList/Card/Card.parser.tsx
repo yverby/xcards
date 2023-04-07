@@ -4,23 +4,29 @@ import { Code, List, Title } from '@mantine/core';
 
 import { createContentParser } from '@src/lib/content';
 
-function ContentHeading(props: any) {
-  return <Title order={3}>{props.children}</Title>;
+import { useStyles } from './Card.styles';
+
+function ElementHeading(props: any) {
+  return <Title order={4}>{props.children}</Title>;
 }
 
-function ContentInlineCode(props: any) {
-  return <Code>{props.children}</Code>;
+function ElementInlineCode(props: any) {
+  const { classes } = useStyles();
+
+  return <Code className={classes.code}>{props.children}</Code>;
 }
 
-function ContentCode(props: any) {
+function ElementCode(props: any) {
+  const { classes } = useStyles();
+
   return (
-    <Prism noCopy language={props.lang} scrollAreaComponent="div">
+    <Prism noCopy language={props.lang} className={classes.prism} scrollAreaComponent="div">
       {props.children}
     </Prism>
   );
 }
 
-function ContentList(props: any) {
+function ElementList(props: any) {
   return (
     <List withPadding type={props.ordered ? 'ordered' : 'unordered'}>
       {props.children}
@@ -28,7 +34,7 @@ function ContentList(props: any) {
   );
 }
 
-function ContentListItem(props: any) {
+function ElementListItem(props: any) {
   return <List.Item>{props.chidlren}</List.Item>;
 }
 
@@ -37,9 +43,9 @@ export const cardParser = createContentParser({
   emphasis: 'em',
   paragraph: 'p',
   strong: 'strong',
-  code: ContentCode,
-  list: ContentList,
-  heading: ContentHeading,
-  listItem: ContentListItem,
-  inlineCode: ContentInlineCode,
+  code: ElementCode,
+  list: ElementList,
+  heading: ElementHeading,
+  listItem: ElementListItem,
+  inlineCode: ElementInlineCode,
 });

@@ -1,9 +1,9 @@
-import { memo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Box, Transition } from '@mantine/core';
 
-import { CardMain } from './CardMain';
-import { CardTitle } from './CardTitle';
+import { CardBody } from './CardBody';
 import { CardHeader } from './CardHeader';
+import { CardOptions } from './CardOptions';
 
 import { useStyles } from './Card.styles';
 import { CardProvider, CardContent, defaultValue } from './Card.context';
@@ -28,6 +28,6 @@ export function Card({ mounted, children, onMounted, ...value }: CardProps) {
   );
 }
 
-Card.Main = memo(CardMain);
-Card.Title = memo(CardTitle);
-Card.Header = memo(CardHeader);
+Card.Body = CardBody;
+Card.Header = CardHeader;
+Card.Options = CardOptions;

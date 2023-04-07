@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Box, Title } from '@mantine/core';
+import { Box, Title, Stack } from '@mantine/core';
 
 import { unpack } from '@src/lib/content';
 
@@ -7,7 +7,7 @@ import { useCard } from './Card.context';
 import { useStyles } from './Card.styles';
 import { cardParser } from './Card.parser';
 
-export function CardTitle() {
+export function CardBody() {
   const card = useCard();
   const { classes } = useStyles();
 
@@ -31,9 +31,14 @@ export function CardTitle() {
     [card.title]
   );
 
+  const body = useMemo(() => cardParser.getJSX(card.body), [card.body]);
+
   return (
     <Box component="section" className={classes.section}>
-      {title}
+      <Stack spacing="sm">
+        {title}
+        {body}
+      </Stack>
     </Box>
   );
 }

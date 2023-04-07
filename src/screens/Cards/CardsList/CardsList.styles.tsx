@@ -4,8 +4,8 @@ export const useStyles = createStyles((theme) => ({
   list: {
     width: '100%',
     height: '100%',
-
-    '*[class*="Carousel"]': {
+    overflow: 'hidden',
+    '*[class*=Carousel]': {
       width: 'inherit',
       height: 'inherit',
     },
@@ -15,5 +15,8 @@ export const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     padding: `0 ${theme.spacing.xl}`,
+    [theme.fn.smallerThan('sm')]: {
+      padding: `0 ${theme.spacing.lg}`,
+    },
   },
 }));

@@ -1,21 +1,13 @@
-import { Stack } from '@mantine/core';
+import { Center, Stack } from '@mantine/core';
 
 import { Cards } from '@src/screens';
-import { useSettingsStore } from '@src/stores/settings';
 
 export function App() {
-  const toggleColorScheme = useSettingsStore((state) => state.toggleColorScheme);
-
   return (
-    <Stack
-      py="xl"
-      h="100svh"
-      spacing={0}
-      align="center"
-      sx={{ userSelect: 'none' }}
-      onClick={() => toggleColorScheme()}
-    >
-      <Cards />
-    </Stack>
+    <Center h="100svh">
+      <Stack w="100%" h="100%" mah={900} py="lg" spacing="lg">
+        <Cards />
+      </Stack>
+    </Center>
   );
 }

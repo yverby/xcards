@@ -1,6 +1,6 @@
 import { rem, ColorScheme, MantineThemeOverride } from '@mantine/core';
 
-import { cs } from './variables';
+import { createColors } from './variables';
 
 export function configureTheme({
   colorScheme,
@@ -14,16 +14,12 @@ export function configureTheme({
     globalStyles(theme) {
       return {
         body: {
-          backgroundColor: theme.other.vars.cs(theme, 'bg'),
+          backgroundColor: theme.other.colors['bg-app'],
         },
       };
     },
     other: {
-      vars: {
-        cs(theme, key) {
-          return cs[key][colorScheme](theme);
-        },
-      },
+      colors: createColors({ colorScheme }),
     },
   };
 }

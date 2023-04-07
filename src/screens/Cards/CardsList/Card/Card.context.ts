@@ -4,8 +4,8 @@ import { groupCard } from '@src/stores/cards';
 
 export type CardContent = ReturnType<typeof groupCard>;
 
-export const defaultValue = ['main', 'title', 'option', 'options', 'details'].reduce(
-  (acc, item) => ({ ...acc, [item]: [] }),
+export const defaultValue = ['id', 'body', 'title', 'option', 'options', 'details'].reduce(
+  (acc, item) => ({ ...acc, [item]: [], id: 0 }),
   {} as CardContent
 );
 

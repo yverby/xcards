@@ -1,5 +1,9 @@
 import { Root, Content } from 'mdast';
 
+import { createContentParser } from '@src/lib/content';
+
+const optionParser = createContentParser({ text: 'span', heading: 'span' });
+
 export function splitRoot({ children: content }: Root) {
   return content
     .filter((node) => node.type !== 'thematicBreak')
@@ -36,8 +40,18 @@ export function groupCard(item: Content[][]) {
   return {
     details: tail.slice(option + 1),
     title: head.slice(title, title + 1),
-    main: head.slice(title + 1, options),
+    body: head.slice(title + 1, options),
     option: tail.slice(option, option + 1),
     options: head.slice(options, options + 1),
+    id: parseInt(optionParser.getString(head.slice(title, title + 1)), 10),
   };
+}
+
+export function parseOptions(list: ReturnType<typeof groupCard>[]) {
+  return list.reduce((options, item) => {
+    const id = parseInt(optionParser.getString(item.title), 10);
+    const option = optionParser.getString(item.option).at(-1);
+
+    return { ...options, ...(id && option && { [id]: option }) };
+  }, {} as Record<number, string>);
 }

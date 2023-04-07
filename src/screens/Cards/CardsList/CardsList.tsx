@@ -12,20 +12,28 @@ export function CardsList() {
   const { classes } = useStyles();
   const [active, setActive] = useState(0);
 
-  const {
-    list: [card],
-    shiftList,
-  } = useCardsStore(select(['list', 'shiftList']), shallow);
+  const { list, options, progress, shiftList, setProgress } = useCardsStore(
+    select(['list', 'options', 'progress', 'shiftList', 'setProgress']),
+    shallow
+  );
+
+  const card = { ...list[0] };
+  const option = options[card.id];
+  const selection = progress[card.id];
 
   return (
     <Carousel loop withControls={false} className={classes.list} onSlideChange={setActive}>
       {[0, 1].map((slide) => (
         <Carousel.Slide key={slide} className={classes.item}>
           <Card {...card} mounted={slide === active} onMounted={shiftList}>
-            <Card.Header />
-            <Stack>
-              <Card.Title />
-              <Card.Main />
+            <Stack mih="100%" spacing={0}>
+              <Card.Header />
+              <Stack sx={{ flex: 1 }} spacing="xl" justify="space-between">
+                <Stack spacing="xl">
+                  <Card.Body />
+                </Stack>
+                <Card.Options option={option} selection={selection} onSelect={setProgress} />
+              </Stack>
             </Stack>
           </Card>
         </Carousel.Slide>
