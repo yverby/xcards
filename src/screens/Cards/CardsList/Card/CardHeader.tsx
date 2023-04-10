@@ -1,7 +1,7 @@
-import { Box, Title } from '@mantine/core';
+import { rem, Box, Title } from '@mantine/core';
 
 import { useCard } from './Card.context';
-import { useStyles } from './Card.styles';
+import { useStyles } from './CardHeader.styles';
 
 export function CardHeader() {
   const card = useCard();
@@ -9,7 +9,7 @@ export function CardHeader() {
 
   return (
     <Box component="header" className={classes.header}>
-      <Title order={2}>#{card.id}</Title>
+      <Title sx={{ fontSize: rem(32) }}>#{card.id}</Title>
     </Box>
   );
 }

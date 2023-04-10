@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Stack } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+import { Stack, Divider } from '@mantine/core';
 
 import { select, shallow } from '@src/lib/store';
 import { useCardsStore } from '@src/stores/cards';
@@ -28,11 +28,13 @@ export function CardsList() {
           <Card {...card} mounted={slide === active} onMounted={shiftList}>
             <Stack mih="100%" spacing={0}>
               <Card.Header />
-              <Stack sx={{ flex: 1 }} spacing="xl" justify="space-between">
-                <Stack spacing="xl">
-                  <Card.Body />
+              <Stack spacing="md" className={classes.content}>
+                <Card.Body />
+                <Stack spacing="md">
+                  {selection && <Card.Details />}
+                  <Divider className={classes.divider} />
+                  <Card.Options option={option} selection={selection} onSelect={setProgress} />
                 </Stack>
-                <Card.Options option={option} selection={selection} onSelect={setProgress} />
               </Stack>
             </Stack>
           </Card>

@@ -1,41 +1,54 @@
 import { Fragment } from 'react';
 import { Prism } from '@mantine/prism';
-import { Code, List, Title } from '@mantine/core';
+import { Code, List, Title, Anchor } from '@mantine/core';
 
 import { createContentParser } from '@src/lib/content';
 
 import { useStyles } from './Card.styles';
 
-function ElementHeading(props: any) {
-  return <Title order={4}>{props.children}</Title>;
+function ElementHeading({ children }: any) {
+  return <Title order={4}>{children}</Title>;
 }
 
-function ElementInlineCode(props: any) {
+function ElementLink({ url, children }: any) {
   const { classes } = useStyles();
-
-  return <Code className={classes.code}>{props.children}</Code>;
-}
-
-function ElementCode(props: any) {
-  const { classes } = useStyles();
-
   return (
-    <Prism noCopy language={props.lang} className={classes.prism} scrollAreaComponent="div">
-      {props.children}
+    <Anchor href={url} target="_blank" underline={false} className={classes.link}>
+      {children}
+    </Anchor>
+  );
+}
+
+function ElementInlineCode({ children }: any) {
+  const { classes } = useStyles();
+  return <Code className={classes.code}>{children}</Code>;
+}
+
+function ElementCode({ lang, children }: any) {
+  return (
+    <Prism noCopy language={lang} scrollAreaComponent="div">
+      {children}
     </Prism>
   );
 }
 
-function ElementList(props: any) {
+function ElementList({ ordered, children }: any) {
+  const { classes } = useStyles();
   return (
-    <List withPadding type={props.ordered ? 'ordered' : 'unordered'}>
-      {props.children}
+    <List withPadding className={classes.list} type={ordered ? 'ordered' : 'unordered'}>
+      {children}
     </List>
   );
 }
 
-function ElementListItem(props: any) {
-  return <List.Item>{props.chidlren}</List.Item>;
+function ElementListItem({ children }: any) {
+  return <List.Item>{children}</List.Item>;
+}
+
+function ElementHTML({ children }: any) {
+  const { classes } = useStyles();
+  if (typeof children !== 'string') return null;
+  return <span className={classes.html} dangerouslySetInnerHTML={{ __html: children }} />;
 }
 
 export const cardParser = createContentParser({
@@ -43,6 +56,8 @@ export const cardParser = createContentParser({
   emphasis: 'em',
   paragraph: 'p',
   strong: 'strong',
+  html: ElementHTML,
+  link: ElementLink,
   code: ElementCode,
   list: ElementList,
   heading: ElementHeading,

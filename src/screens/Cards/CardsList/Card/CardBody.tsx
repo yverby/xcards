@@ -4,8 +4,8 @@ import { Box, Title, Stack } from '@mantine/core';
 import { unpack } from '@src/lib/content';
 
 import { useCard } from './Card.context';
-import { useStyles } from './Card.styles';
 import { cardParser } from './Card.parser';
+import { useStyles } from './CardBody.styles';
 
 export function CardBody() {
   const card = useCard();
@@ -34,7 +34,7 @@ export function CardBody() {
   const body = useMemo(() => cardParser.getJSX(card.body), [card.body]);
 
   return (
-    <Box component="section" className={classes.section}>
+    <Box component="section" className={classes.body}>
       <Stack spacing="sm">
         {title}
         {body}

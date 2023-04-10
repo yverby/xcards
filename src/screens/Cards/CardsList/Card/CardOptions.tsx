@@ -4,8 +4,8 @@ import { Box, Stack, UnstyledButton } from '@mantine/core';
 import { unpack } from '@src/lib/content';
 
 import { useCard } from './Card.context';
-import { useStyles } from './Card.styles';
 import { cardParser } from './Card.parser';
+import { useStyles } from './CardOptions.styles';
 
 interface CardOptionsProps {
   option: string;
@@ -52,7 +52,7 @@ export function CardOptions({ option, selection, onSelect }: CardOptionsProps) {
   );
 
   return (
-    <Box component="section" className={classes.section}>
+    <Box component="section">
       <Stack spacing="sm">{options}</Stack>
     </Box>
   );
