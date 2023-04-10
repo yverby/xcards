@@ -1,4 +1,4 @@
-import { em, createStyles } from '@mantine/core';
+import { em, rem, createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
   card: {
@@ -16,7 +16,7 @@ export const useStyles = createStyles((theme) => ({
     color: theme.other.colors.success,
   },
   code: {
-    borderWidth: em(1),
+    borderWidth: rem(1),
     borderStyle: 'solid',
     borderRadius: em(7.5),
     borderColor: 'transparent',
