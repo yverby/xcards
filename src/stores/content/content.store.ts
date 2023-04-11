@@ -6,24 +6,24 @@ import remarkParse from 'remark-parse';
 import { API } from '@src/constants';
 
 interface ContentState {
-  root: Root | null;
+  content: Root | null;
   error: any;
   loading: boolean;
 }
 
 interface ContentActions {
-  fetchRoot: (locale: keyof typeof API.CONTENT) => void;
+  fetchContent: (locale: keyof typeof API.CONTENT) => void;
 }
 
 const defaultState: ContentState = {
-  root: null,
+  content: null,
   error: null,
   loading: false,
 };
 
 export const useContentStore = create<ContentState & ContentActions>((set) => ({
   ...defaultState,
-  async fetchRoot(locale) {
+  async fetchContent(locale) {
     set(() => ({ ...defaultState, loading: true }));
 
     try {
@@ -34,11 +34,11 @@ export const useContentStore = create<ContentState & ContentActions>((set) => ({
         throw new Error();
       }
 
-      const root = unified()
+      const content = unified()
         .use(remarkParse)
         .parse(text.slice(text.indexOf('######') + 1));
 
-      set(() => ({ ...defaultState, root }));
+      set(() => ({ ...defaultState, content }));
     } catch (error) {
       set(() => ({ ...defaultState, error }));
     }

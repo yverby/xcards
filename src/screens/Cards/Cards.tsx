@@ -1,24 +1,29 @@
 import { useEffect } from 'react';
 import { Center, Loader, Title } from '@mantine/core';
 
+import { shallow } from '@src/lib/store';
 import { useCardsStore } from '@src/stores/cards';
 import { useContentStore } from '@src/stores/content';
 
 import { CardsList } from './CardsList';
 
 export function Cards() {
-  const content = useContentStore();
-  const setList = useCardsStore((state) => state.setList);
+  const { content, error, loading, fetchContent } = useContentStore();
+
+  const { hasList, parseCards } = useCardsStore(
+    (state) => ({ hasList: !!state.list.length, parseCards: state.parseCards }),
+    shallow
+  );
 
   useEffect(() => {
-    content.fetchRoot('EN');
+    fetchContent('EN');
   }, []);
 
   useEffect(() => {
-    content.root && setList(content.root);
-  }, [content.root]);
+    content && parseCards(content);
+  }, [content]);
 
-  if (content.loading) {
+  if (loading) {
     return (
       <Center h="100%">
         <Loader color="gray" />
@@ -26,10 +31,18 @@ export function Cards() {
     );
   }
 
-  if (content.error) {
+  if (error) {
     return (
       <Center h="100%">
-        <Title>Oops!</Title>
+        <Title>😯 Oops!</Title>
+      </Center>
+    );
+  }
+
+  if (!hasList) {
+    return (
+      <Center h="100%">
+        <Title>🎉 Finish!</Title>
       </Center>
     );
   }

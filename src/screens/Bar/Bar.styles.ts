@@ -4,7 +4,7 @@ export const useStyles = createStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
-    padding: `0 ${theme.spacing.lg}`,
+    padding: `0 ${theme.spacing.md}`,
 
     [theme.fn.largerThan('md')]: {
       position: 'absolute',
@@ -16,6 +16,7 @@ export const useStyles = createStyles((theme) => ({
   },
   bar: {
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     width: '100%',
 
@@ -23,12 +24,5 @@ export const useStyles = createStyles((theme) => ({
       alignItems: 'center',
       maxWidth: theme.breakpoints.xs,
     },
-  },
-  action: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing.sm,
-    borderRadius: theme.spacing.sm,
-    backgroundColor: theme.other.colors.card,
   },
 }));

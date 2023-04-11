@@ -1,0 +1,1 @@
+export { BarProgress } from './BarProgress';

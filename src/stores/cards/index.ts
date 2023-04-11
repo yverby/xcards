@@ -1,2 +1,2 @@
-export { groupCard } from './cards.lib';
+export { parseCard } from './cards.lib';
 export { useCardsStore } from './cards.store';

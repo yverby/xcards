@@ -4,7 +4,7 @@ import { createContentParser } from '@src/lib/content';
 
 const optionParser = createContentParser({ text: 'span', heading: 'span' });
 
-export function splitRoot({ children: content }: Root) {
+export function splitContent({ children: content }: Root) {
   return content
     .filter((node) => node.type !== 'thematicBreak')
     .filter((node) => !(node.type === 'html' && node.value.includes('details')))
@@ -30,7 +30,7 @@ export function splitRoot({ children: content }: Root) {
     );
 }
 
-export function groupCard(item: Content[][]) {
+export function parseCard(item: Content[][]) {
   const [head = [], tail = []] = item;
 
   const title = head.findIndex((node) => node.type === 'heading');
@@ -47,7 +47,7 @@ export function groupCard(item: Content[][]) {
   };
 }
 
-export function parseOptions(list: ReturnType<typeof groupCard>[]) {
+export function parseOptions(list: ReturnType<typeof parseCard>[]) {
   return list.reduce((options, item) => {
     const id = parseInt(optionParser.getString(item.title), 10);
     const option = optionParser.getString(item.option).at(-1);
