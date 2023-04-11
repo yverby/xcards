@@ -29,6 +29,6 @@ export const useStyles = createStyles((theme) => ({
     },
   },
   divider: {
-    borderColor: theme.other.colors['bg-accent'],
+    borderColor: theme.other.colors.prism,
   },
 }));

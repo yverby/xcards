@@ -1,9 +1,12 @@
-import { createStyles } from '@mantine/core';
+import { rem, createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
   accordion: {
+    borderWidth: rem(1),
+    borderStyle: 'solid',
+    borderColor: 'transparent',
     borderRadius: theme.spacing.sm,
-    backgroundColor: theme.other.colors['bg-code'],
+    backgroundColor: theme.other.colors.prism,
     fontSize: theme.fontSizes.sm,
   },
   item: {
@@ -30,7 +33,7 @@ export const useStyles = createStyles((theme) => ({
     paddingTop: `calc(${theme.spacing.xs} / 4)`,
     pre: {
       borderRadius: theme.spacing.xs,
-      backgroundColor: `${theme.other.colors['bg-card']} !important`,
+      backgroundColor: `${theme.other.colors.card} !important`,
     },
     p: {
       margin: 0,

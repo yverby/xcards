@@ -10,7 +10,7 @@ export const useStyles = createStyles((theme) => ({
     borderStyle: 'solid',
     borderColor: 'transparent',
     borderRadius: theme.spacing.sm,
-    backgroundColor: theme.other.colors['bg-code'],
+    backgroundColor: theme.other.colors.prism,
     fontSize: theme.fontSizes.sm,
 
     '&:disabled': {

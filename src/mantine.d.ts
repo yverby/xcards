@@ -1,9 +1,7 @@
 import '@mantine/core';
 
-import { createColors } from '@src/theme/variables';
+import { configureOther } from '@src/theme/config';
 
 declare module '@mantine/core' {
-  export interface MantineThemeOther {
-    colors: ReturnType<typeof createColors>;
-  }
+  export interface MantineThemeOther extends ReturnType<typeof configureOther> {}
 }

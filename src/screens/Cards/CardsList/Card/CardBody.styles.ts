@@ -4,10 +4,10 @@ export const useStyles = createStyles((theme) => ({
   body: {
     code: {
       fontSize: em(12),
-      backgroundColor: theme.other.colors['bg-code'],
+      backgroundColor: theme.other.colors.code,
     },
     pre: {
-      backgroundColor: `${theme.other.colors['bg-code']} !important`,
+      backgroundColor: `${theme.other.colors.prism} !important`,
     },
   },
 }));

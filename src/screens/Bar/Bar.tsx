@@ -15,7 +15,7 @@ export function Bar() {
   );
 
   return (
-    <Box className={classes.root}>
+    <Box component="header" className={classes.root}>
       <Box className={classes.bar}>
         <Box />
         <Box>

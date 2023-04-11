@@ -7,7 +7,7 @@ export const useStyles = createStyles((theme) => ({
     height: 'inherit',
     maxWidth: theme.breakpoints.xs,
     borderRadius: theme.radius.lg,
-    backgroundColor: theme.other.colors['bg-card'],
+    backgroundColor: theme.other.colors.card,
     overflow: 'hidden',
     overflowY: 'scroll',
     userSelect: 'none',
@@ -20,7 +20,7 @@ export const useStyles = createStyles((theme) => ({
     borderStyle: 'solid',
     borderRadius: em(7.5),
     borderColor: 'transparent',
-    backgroundColor: theme.other.colors['bg-card'],
+    backgroundColor: theme.other.colors.code,
   },
   list: {
     fontSize: 'inherit',

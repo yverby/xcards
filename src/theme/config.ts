@@ -1,6 +1,13 @@
 import { rem, ColorScheme, MantineThemeOverride } from '@mantine/core';
 
-import { createColors } from './variables';
+import { configureColors } from './lib';
+import { globalColors } from './variables';
+
+export function configureOther({ colorScheme }: { colorScheme: ColorScheme }) {
+  return {
+    colors: configureColors(globalColors, { colorScheme }),
+  };
+}
 
 export function configureTheme({
   colorScheme,
@@ -10,16 +17,16 @@ export function configureTheme({
   return {
     colorScheme,
     defaultRadius: 'md',
-    radius: { md: rem(12) },
+    radius: {
+      md: rem(12),
+    },
     globalStyles(theme) {
       return {
         body: {
-          backgroundColor: theme.other.colors['bg-app'],
+          backgroundColor: theme.other.colors.app,
         },
       };
     },
-    other: {
-      colors: createColors({ colorScheme }),
-    },
+    other: configureOther({ colorScheme }),
   };
 }
