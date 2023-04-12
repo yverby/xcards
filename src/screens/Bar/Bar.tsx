@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { Box, Container } from '@mantine/core';
 
 import { BarActions } from './BarActions';
 import { BarProgress } from './BarProgress';
@@ -9,11 +9,11 @@ export function Bar() {
   const { classes } = useStyles();
 
   return (
-    <Box className={classes.root}>
+    <Container w="100%" size="xs" className={classes.container}>
       <Box component="header" className={classes.bar}>
         <BarProgress />
         <BarActions />
       </Box>
-    </Box>
+    </Container>
   );
 }

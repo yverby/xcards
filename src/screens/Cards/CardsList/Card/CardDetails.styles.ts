@@ -33,7 +33,7 @@ export const useStyles = createStyles((theme) => ({
     paddingTop: `calc(${theme.spacing.xs} / 4)`,
     pre: {
       borderRadius: theme.spacing.xs,
-      backgroundColor: `${theme.other.colors.card} !important`,
+      backgroundColor: `${theme.other.colors.paper} !important`,
     },
     p: {
       margin: 0,

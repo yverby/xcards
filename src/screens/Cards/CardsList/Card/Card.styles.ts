@@ -1,17 +1,6 @@
 import { em, rem, createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
-  card: {
-    position: 'relative',
-    width: 'inherit',
-    height: 'inherit',
-    maxWidth: theme.breakpoints.xs,
-    borderRadius: theme.radius.lg,
-    backgroundColor: theme.other.colors.card,
-    overflow: 'hidden',
-    overflowY: 'scroll',
-    userSelect: 'none',
-  },
   link: {
     color: theme.other.colors.success,
   },

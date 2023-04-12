@@ -11,6 +11,6 @@ export const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     padding: theme.spacing.sm,
     borderRadius: theme.spacing.sm,
-    backgroundColor: theme.other.colors.card,
+    backgroundColor: theme.other.colors.paper,
   },
 }));

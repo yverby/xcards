@@ -5,7 +5,7 @@ export const useStyles = createStyles((theme) => ({
   progress: {
     circle: {
       '&:first-of-type': {
-        stroke: theme.other.colors.card,
+        stroke: theme.other.colors.paper,
       },
     },
   },

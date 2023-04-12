@@ -9,7 +9,7 @@ export const globalColors = {
     dark: theme.colors.dark[6],
     light: theme.white,
   },
-  card: {
+  paper: {
     dark: theme.colors.dark[7],
     light: theme.white,
   },

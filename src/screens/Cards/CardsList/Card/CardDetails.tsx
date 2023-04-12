@@ -26,7 +26,7 @@ export function CardDetails() {
       >
         <Accordion.Item value="details">
           <Accordion.Control>
-            <Title order={5}>{title}</Title>
+            <Title order={6}>{title}</Title>
           </Accordion.Control>
           <Accordion.Panel>
             <Stack spacing="md">{details}</Stack>
