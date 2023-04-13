@@ -16,7 +16,7 @@ export const useStyles = createStyles((theme) => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       alignItems: 'center',
     },
   },

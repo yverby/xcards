@@ -6,8 +6,5 @@ export const useStyles = createStyles((theme) => ({
       fontSize: em(12),
       backgroundColor: theme.other.colors.code,
     },
-    pre: {
-      backgroundColor: `${theme.other.colors.prism} !important`,
-    },
   },
 }));

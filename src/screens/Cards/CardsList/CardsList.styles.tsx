@@ -4,6 +4,7 @@ export const useStyles = createStyles((theme) => ({
   list: {
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
 
     '& [class*=Carousel]': {
       width: 'inherit',

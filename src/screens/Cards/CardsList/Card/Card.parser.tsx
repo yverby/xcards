@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Prism } from '@mantine/prism';
-import { Code, List, Title, Anchor } from '@mantine/core';
+import { Code, List, Title, Anchor, ScrollArea } from '@mantine/core';
 
 import { createContentParser } from '@src/lib/content';
 
@@ -12,6 +12,7 @@ function ElementHeading({ children }: any) {
 
 function ElementLink({ url, children }: any) {
   const { classes } = useStyles();
+
   return (
     <Anchor href={url} target="_blank" underline={false} className={classes.link}>
       {children}
@@ -21,12 +22,23 @@ function ElementLink({ url, children }: any) {
 
 function ElementInlineCode({ children }: any) {
   const { classes } = useStyles();
+
   return <Code className={classes.code}>{children}</Code>;
 }
 
 function ElementCode({ lang, children }: any) {
   return (
-    <Prism noCopy language={lang} scrollAreaComponent="div">
+    <Prism
+      noCopy
+      language={lang}
+      scrollAreaComponent={(props: any) => (
+        <ScrollArea
+          {...props}
+          onMouseDownCapture={(event) => event.stopPropagation()}
+          onTouchStartCapture={(event) => event.stopPropagation()}
+        />
+      )}
+    >
       {children}
     </Prism>
   );
@@ -34,6 +46,7 @@ function ElementCode({ lang, children }: any) {
 
 function ElementList({ ordered, children }: any) {
   const { classes } = useStyles();
+
   return (
     <List withPadding className={classes.list} type={ordered ? 'ordered' : 'unordered'}>
       {children}
@@ -47,8 +60,17 @@ function ElementListItem({ children }: any) {
 
 function ElementHTML({ children }: any) {
   const { classes } = useStyles();
+
   if (typeof children !== 'string') return null;
-  return <span className={classes.html} dangerouslySetInnerHTML={{ __html: children }} />;
+
+  return (
+    <span
+      className={classes.html}
+      dangerouslySetInnerHTML={{
+        __html: children.replace(/<script.*>.*<\/script>/ims, ' '),
+      }}
+    />
+  );
 }
 
 export const cardParser = createContentParser({

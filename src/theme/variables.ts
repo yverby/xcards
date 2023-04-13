@@ -17,6 +17,10 @@ export const globalColors = {
     dark: theme.colors.dark[9],
     light: theme.colors.gray[0],
   },
+  thumb: {
+    dark: theme.colors.dark[5],
+    light: theme.colors.gray[3],
+  },
   success: {
     dark: theme.colors.teal[4],
     light: theme.colors.lime[9],

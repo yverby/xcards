@@ -31,12 +31,11 @@ export const useStyles = createStyles((theme) => ({
   content: {
     padding: theme.spacing.md,
     paddingTop: `calc(${theme.spacing.xs} / 4)`,
-    pre: {
-      borderRadius: theme.spacing.xs,
-      backgroundColor: `${theme.other.colors.paper} !important`,
-    },
     p: {
       margin: 0,
+    },
+    '& [class*=Prism-root]': {
+      backgroundColor: theme.other.colors.paper,
     },
   },
 }));

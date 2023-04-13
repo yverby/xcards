@@ -2,6 +2,7 @@ import { rem, ColorScheme, MantineThemeOverride } from '@mantine/core';
 
 import { configureColors } from './lib';
 import { globalColors } from './variables';
+import * as components from './components';
 
 export function configureOther({ colorScheme }: { colorScheme: ColorScheme }) {
   return {
@@ -15,6 +16,7 @@ export function configureTheme({
   colorScheme: ColorScheme;
 }): MantineThemeOverride {
   return {
+    components,
     colorScheme,
     defaultRadius: 'md',
     radius: {

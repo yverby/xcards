@@ -11,4 +11,16 @@ export const useStyles = createStyles((theme) => ({
     overflowY: 'auto',
     userSelect: 'none',
   },
+  viewport: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    '& > div': {
+      display: 'block !important',
+      flex: 1,
+    },
+  },
+  scrollbar: {
+    zIndex: 100,
+  },
 }));
