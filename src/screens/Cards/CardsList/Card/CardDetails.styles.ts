@@ -24,8 +24,11 @@ export const useStyles = createStyles((theme) => ({
     cursor: 'pointer',
   },
   chevron: {
+    display: 'flex',
+    transition: '150ms ease',
+
     '&[data-rotate]': {
-      transform: 'rotate(-180deg)',
+      transform: 'rotate(45deg)',
     },
   },
   content: {

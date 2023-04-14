@@ -8,7 +8,6 @@ export const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.lg,
     backgroundColor: theme.other.colors.paper,
     overflow: 'hidden',
-    overflowY: 'auto',
     userSelect: 'none',
   },
   viewport: {

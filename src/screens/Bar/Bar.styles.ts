@@ -2,6 +2,8 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
   container: {
+    pointerEvents: 'none',
+
     [theme.fn.largerThan('md')]: {
       position: 'absolute',
       top: 0,
@@ -18,6 +20,10 @@ export const useStyles = createStyles((theme) => ({
 
     [theme.fn.smallerThan('md')]: {
       alignItems: 'center',
+    },
+
+    '& > *': {
+      pointerEvents: 'all',
     },
   },
 }));

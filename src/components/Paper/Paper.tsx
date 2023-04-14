@@ -25,7 +25,7 @@ export const Paper = createPolymorphicComponent<'div', PaperProps>(
       return (
         <Box {...props} ref={ref} className={cx(classes.root, className)}>
           <ScrollArea
-            h="inherit"
+            h="100%"
             classNames={{
               viewport: classes.viewport,
               scrollbar: classes.scrollbar,

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Box, Title, Stack, Accordion } from '@mantine/core';
+import { IconPlus } from '@tabler/icons-react';
+import { rem, Box, Title, Stack, Accordion } from '@mantine/core';
 
 import { useCard } from './Card.context';
 import { cardParser } from './Card.parser';
@@ -23,6 +24,7 @@ export function CardDetails() {
         classNames={classes}
         transitionDuration={350}
         className={classes.accordion}
+        chevron={<IconPlus size={rem(18)} />}
       >
         <Accordion.Item value="details">
           <Accordion.Control>
