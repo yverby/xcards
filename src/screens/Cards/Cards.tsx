@@ -1,51 +1,55 @@
 import { useEffect } from 'react';
-import { Center, Loader, Title } from '@mantine/core';
+import { Title, Loader, Center } from '@mantine/core';
 
-import { shallow } from '@src/lib/store';
-import { useCardsStore } from '@src/stores/cards';
+import { select, shallow } from '@src/lib/store';
 import { useContentStore } from '@src/stores/content';
+import { useSettingsStore } from '@src/stores/settings';
+import { useCardsStore, useCardsStatus } from '@src/stores/cards';
 
+import { CardsHero } from './CardsHero';
 import { CardsList } from './CardsList';
 
 export function Cards() {
-  const { content, error, loading, fetchContent } = useContentStore();
+  const { hasList, hasFinish } = useCardsStatus();
 
-  const { hasList, parseCards } = useCardsStore(
-    (state) => ({ hasList: !!state.list.length, parseCards: state.parseCards }),
+  const locale = useSettingsStore((state) => state.locale);
+  const parseCards = useCardsStore((state) => state.parseCards);
+
+  const { error, content, loading, fetchContent } = useContentStore(
+    select(['error', 'loading', 'content', 'fetchContent']),
     shallow
   );
 
   useEffect(() => {
-    fetchContent('EN');
-  }, []);
+    locale && fetchContent(locale);
+  }, [locale]);
 
   useEffect(() => {
     content && parseCards(content);
   }, [content]);
 
-  if (loading) {
-    return (
-      <Center h="100%">
-        <Loader color="gray" />
-      </Center>
-    );
+  switch (true) {
+    case !!error:
+      return (
+        <Center h="100%">
+          <Title>Oops!</Title>
+        </Center>
+      );
+    case loading:
+      return (
+        <Center h="100%">
+          <Loader color="gray" />
+        </Center>
+      );
+    case hasList:
+      return <CardsList />;
+    case hasFinish:
+      return (
+        <Center h="100%">
+          <Title>Finish!</Title>
+        </Center>
+      );
+    default:
+      return <CardsHero />;
   }
-
-  if (error) {
-    return (
-      <Center h="100%">
-        <Title>😯 Oops!</Title>
-      </Center>
-    );
-  }
-
-  if (!hasList) {
-    return (
-      <Center h="100%">
-        <Title>🎉 Finish!</Title>
-      </Center>
-    );
-  }
-
-  return <CardsList />;
 }

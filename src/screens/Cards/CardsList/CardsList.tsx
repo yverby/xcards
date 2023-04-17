@@ -33,7 +33,11 @@ export function CardsList() {
                 <Stack spacing="md">
                   {selection && <Card.Details />}
                   <Divider className={classes.divider} />
-                  <Card.Options option={option} selection={selection} onSelect={setProgress} />
+                  <Card.Options
+                    option={option}
+                    onSelect={setProgress}
+                    selection={{ ...selection }}
+                  />
                 </Stack>
               </Stack>
             </Stack>

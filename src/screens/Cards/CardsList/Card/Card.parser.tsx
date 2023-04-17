@@ -27,6 +27,8 @@ function ElementInlineCode({ children }: any) {
 }
 
 function ElementCode({ lang, children }: any) {
+  if (typeof children !== 'string') return null;
+
   return (
     <Prism
       noCopy
@@ -39,7 +41,7 @@ function ElementCode({ lang, children }: any) {
         />
       )}
     >
-      {children}
+      {children.replace(/\t/g, '  ')}
     </Prism>
   );
 }

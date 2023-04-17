@@ -9,13 +9,15 @@ import { useStyles } from './CardOptions.styles';
 
 interface CardOptionsProps {
   option: string;
-  selection: string;
-  onSelect: (value: Record<number, string>) => void;
+  selection: { option: string };
+  onSelect: (value: Record<number, { option: string }>) => void;
 }
 
 export function CardOptions({ option, selection, onSelect }: CardOptionsProps) {
   const card = useCard();
   const { classes } = useStyles();
+
+  const selectOption = (value: string) => onSelect({ [card.id]: { option: value } });
 
   const options = useMemo(
     () =>
@@ -31,24 +33,24 @@ export function CardOptions({ option, selection, onSelect }: CardOptionsProps) {
           clone.value = clone.value.slice(start + 1);
         }
 
-        const attr = [option, selection].includes(value) && {
+        const attr = [option, selection.option].includes(value) && {
           'data-option': value === option,
         };
 
         return (
           <UnstyledButton
+            {...(selection.option && attr)}
             key={key}
-            {...(selection && attr)}
             className={classes.option}
-            disabled={Boolean(selection)}
-            onClick={() => onSelect({ [card.id]: value })}
+            disabled={Boolean(selection.option)}
+            onClick={() => selectOption(value)}
           >
             <strong>{value}:</strong>
             <span>{cardParser.getJSX([clone, ...nodes])}</span>
           </UnstyledButton>
         );
       }),
-    [classes, selection, card.id, card.options]
+    [classes, card.id, card.options, selection.option]
   );
 
   return (

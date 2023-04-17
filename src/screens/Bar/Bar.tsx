@@ -9,7 +9,7 @@ export function Bar() {
   const { classes } = useStyles();
 
   return (
-    <Container w="100%" size="xs" className={classes.container}>
+    <Container size="xs" w="100%" className={classes.container}>
       <Box component="header" className={classes.bar}>
         <BarProgress />
         <BarActions />

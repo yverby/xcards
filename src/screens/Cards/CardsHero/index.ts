@@ -1,0 +1,1 @@
+export { CardsHero } from './CardsHero';

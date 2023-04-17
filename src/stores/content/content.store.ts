@@ -12,7 +12,7 @@ interface ContentState {
 }
 
 interface ContentActions {
-  fetchContent: (locale: keyof typeof API.CONTENT) => void;
+  fetchContent: (locale: API.Locale) => void;
 }
 
 const defaultState: ContentState = {
@@ -27,7 +27,7 @@ export const useContentStore = create<ContentState & ContentActions>((set) => ({
     set(() => ({ ...defaultState, loading: true }));
 
     try {
-      const res = await fetch(API.CONTENT[locale]);
+      const res = await fetch(`${API.BASE}/${API.LOCALE[locale].ROUTE}`);
       const text = await res.text();
 
       if (text.startsWith('404')) {
