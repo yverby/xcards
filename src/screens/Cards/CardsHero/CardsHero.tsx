@@ -1,6 +1,7 @@
-import { Title, Group, Stack, Center, Container, UnstyledButton } from '@mantine/core';
+import { Title, Group, Button, Container } from '@mantine/core';
 
 import { API } from '@src/constants';
+import { Paper } from '@src/components';
 import { useSettingsStore } from '@src/stores/settings';
 
 import { useStyles } from './CardsHero.styles';
@@ -11,23 +12,24 @@ export function CardsHero() {
   const setSettings = useSettingsStore((state) => state.setSettings);
 
   return (
-    <Container size="xs" w="100%" h="100%">
-      <Center h="inherit">
-        <Stack p="xl" align="center" spacing="xl">
-          <Title>XCards</Title>
-          <Group position="center">
+    <Container size="xs" w="100%" h="100%" className={classes.container}>
+      <Paper w="100%">
+        <Paper.Head>
+          <Title size={32} align="center">
+            XCards
+          </Title>
+        </Paper.Head>
+
+        <Paper.Body pt={0}>
+          <Group position="center" p="md" className={classes.locales}>
             {(Object.keys(API.LOCALE) as API.Locale[]).map((locale) => (
-              <UnstyledButton
-                key={locale}
-                className={classes.action}
-                onClick={() => setSettings({ locale })}
-              >
+              <Button px="md" variant="action" onClick={() => setSettings({ locale })} key={locale}>
                 {API.LOCALE[locale].NAME}
-              </UnstyledButton>
+              </Button>
             ))}
           </Group>
-        </Stack>
-      </Center>
+        </Paper.Body>
+      </Paper>
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import { Box, UnstyledButton } from '@mantine/core';
+import { Box, Button } from '@mantine/core';
 import { IconReload, IconBrightnessUp, IconBrightnessDown } from '@tabler/icons-react';
 
 import { select, shallow } from '@src/lib/store';
@@ -16,16 +16,16 @@ export function BarActions() {
 
   return (
     <Box className={classes.root}>
-      <UnstyledButton className={classes.action} onClick={() => resetSettings()}>
+      <Button variant="action" onClick={() => resetSettings()}>
         <IconReload size={20} />
-      </UnstyledButton>
-      <UnstyledButton className={classes.action} onClick={() => toggleColorScheme()}>
+      </Button>
+      <Button variant="action" onClick={() => toggleColorScheme()}>
         {colorScheme === 'light' ? (
           <IconBrightnessUp size={20} />
         ) : (
           <IconBrightnessDown size={20} />
         )}
-      </UnstyledButton>
+      </Button>
     </Box>
   );
 }

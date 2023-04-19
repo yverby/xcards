@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Carousel } from '@mantine/carousel';
-import { Stack, Divider } from '@mantine/core';
+import { Stack, Container, Transition } from '@mantine/core';
 
 import { select, shallow } from '@src/lib/store';
 import { useCardsStore } from '@src/stores/cards';
@@ -19,29 +19,38 @@ export function CardsList() {
 
   const card = { ...list[0] };
   const option = options[card.id];
-  const selection = progress[card.id];
+  const _progress = { ...progress[card.id] };
 
   return (
-    <Carousel loop withControls={false} className={classes.list} onSlideChange={setActive}>
+    <Carousel loop withControls={false} classNames={classes} onSlideChange={setActive}>
       {[0, 1].map((slide) => (
-        <Carousel.Slide key={slide} className={classes.item}>
-          <Card {...card} mounted={slide === active} onMounted={shiftList}>
-            <Stack mih="100%" spacing={0}>
-              <Card.Header />
-              <Stack spacing="md" className={classes.content}>
-                <Card.Body />
-                <Stack spacing="md">
-                  {selection && <Card.Details />}
-                  <Divider className={classes.divider} />
-                  <Card.Options
-                    option={option}
-                    onSelect={setProgress}
-                    selection={{ ...selection }}
-                  />
-                </Stack>
-              </Stack>
-            </Stack>
-          </Card>
+        <Carousel.Slide key={slide}>
+          <Transition
+            duration={500}
+            transition="fade"
+            onEnter={shiftList}
+            mounted={slide === active}
+          >
+            {(styles) => (
+              <Container size="xs" w="100%" h="100%" style={styles}>
+                <Card {...card}>
+                  {slide === active && (
+                    <Stack h="100%" spacing="md" justify="space-between">
+                      <Card.Body />
+                      <Stack spacing="md">
+                        <Card.Details progress={_progress} />
+                        <Card.Options
+                          option={option}
+                          progress={_progress}
+                          onProgress={setProgress}
+                        />
+                      </Stack>
+                    </Stack>
+                  )}
+                </Card>
+              </Container>
+            )}
+          </Transition>
         </Carousel.Slide>
       ))}
     </Carousel>

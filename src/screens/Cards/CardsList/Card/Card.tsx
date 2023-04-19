@@ -1,36 +1,39 @@
 import { memo, ReactNode } from 'react';
-import { Container, Transition } from '@mantine/core';
+import { Title } from '@mantine/core';
 
 import { Paper } from '@src/components';
+import { CardContent } from '@src/stores/cards';
 
 import { CardBody } from './CardBody';
-import { CardHeader } from './CardHeader';
 import { CardDetails } from './CardDetails';
 import { CardOptions } from './CardOptions';
 
-import { CardProvider, CardContent, defaultValue } from './Card.context';
+import { CardProvider, defaultValue } from './Card.context';
 
 interface CardProps extends CardContent {
-  mounted: boolean;
   children: ReactNode;
-  onMounted: () => void;
 }
 
-export function Card({ mounted, children, onMounted, ...value }: CardProps) {
+export function Card({ children, ...value }: CardProps) {
+  const card = { ...defaultValue, ...value };
+
   return (
-    <Transition mounted={mounted} duration={500} transition="fade" onEnter={onMounted}>
-      {(styles) => (
-        <Container w="100%" h="100%" size="xs" style={styles}>
-          <Paper component="article">
-            <CardProvider value={{ ...defaultValue, ...value }}>{mounted && children}</CardProvider>
-          </Paper>
-        </Container>
+    <Paper w="100%" h="100%">
+      {children && (
+        <CardProvider value={card}>
+          <Paper.Head>
+            <Title order={2} size={28}>
+              #{card.id}
+            </Title>
+          </Paper.Head>
+
+          <Paper.Body pt={0}>{children}</Paper.Body>
+        </CardProvider>
       )}
-    </Transition>
+    </Paper>
   );
 }
 
 Card.Body = memo(CardBody);
-Card.Header = memo(CardHeader);
 Card.Details = memo(CardDetails);
 Card.Options = memo(CardOptions);

@@ -1,11 +1,14 @@
 import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
-  action: {
+  container: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
-    padding: theme.spacing.sm,
-    borderRadius: theme.spacing.sm,
-    backgroundColor: theme.other.colors.paper,
+    overflow: 'hidden',
+  },
+  locales: {
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.other.colors.prism,
   },
 }));

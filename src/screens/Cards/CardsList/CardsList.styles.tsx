@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/core';
 
-export const useStyles = createStyles((theme) => ({
-  list: {
+export const useStyles = createStyles(() => ({
+  root: {
     width: '100%',
     height: '100%',
     overflow: 'hidden',
@@ -11,22 +11,9 @@ export const useStyles = createStyles((theme) => ({
       height: 'inherit',
     },
   },
-  item: {
+  slide: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: theme.spacing.md,
-    paddingTop: 0,
-
-    [theme.fn.smallerThan('sm')]: {
-      paddingTop: 0,
-    },
-  },
-  divider: {
-    borderColor: theme.other.colors.prism,
   },
 }));

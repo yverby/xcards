@@ -1,8 +1,6 @@
 import { useContext, createContext } from 'react';
 
-import { parseCard } from '@src/stores/cards';
-
-export type CardContent = ReturnType<typeof parseCard>;
+import { CardContent } from '@src/stores/cards';
 
 export const defaultValue = ['id', 'body', 'title', 'option', 'options', 'details'].reduce(
   (acc, item) => ({ ...acc, [item]: [], id: 0 }),

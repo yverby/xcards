@@ -7,22 +7,22 @@ import { STORAGE } from '@src/constants';
 
 import { splitContent, parseCard, parseOptions } from './cards.lib';
 
-type Card = ReturnType<typeof parseCard>;
-type Options = ReturnType<typeof parseOptions>;
-type Progress = Record<number, { option: string }>;
+export type CardContent = ReturnType<typeof parseCard>;
+export type CardsOptions = ReturnType<typeof parseOptions>;
+export type CardsProgress = Record<number, { option: string }>;
 
 interface CardsState {
-  list: Card[];
-  cards: Card[];
-  options: Options;
-  progress: Progress;
+  list: CardContent[];
+  cards: CardContent[];
+  options: CardsOptions;
+  progress: CardsProgress;
 }
 
 interface CardsActions {
   shiftList: () => void;
   resetCards: () => void;
   parseCards: (content: Root) => void;
-  setProgress: (options: Progress) => void;
+  setProgress: (values: CardsProgress) => void;
 }
 
 const defaultState: CardsState = {
@@ -59,9 +59,9 @@ export const useCardsStore = create<CardsState & CardsActions>()(
           return { list };
         });
       },
-      setProgress(options) {
+      setProgress(values) {
         set((state) => {
-          const progress = { ...state.progress, ...options };
+          const progress = { ...state.progress, ...values };
 
           return { progress };
         });

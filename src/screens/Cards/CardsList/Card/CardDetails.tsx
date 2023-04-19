@@ -2,11 +2,17 @@ import { useMemo } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { rem, Box, Title, Stack, Accordion } from '@mantine/core';
 
+import { CardsProgress } from '@src/stores/cards';
+
 import { useCard } from './Card.context';
 import { cardParser } from './Card.parser';
 import { useStyles } from './CardDetails.styles';
 
-export function CardDetails() {
+interface CardDetailsProps {
+  progress: CardsProgress[number];
+}
+
+export function CardDetails({ progress }: CardDetailsProps) {
   const card = useCard();
   const { classes } = useStyles();
 
@@ -16,6 +22,10 @@ export function CardDetails() {
     const option = cardParser.getString(card.option);
     return option.slice(0, option.indexOf(':'));
   }, [card.option]);
+
+  if (!progress.option) {
+    return null;
+  }
 
   return (
     <Box component="section">
