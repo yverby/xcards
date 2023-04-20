@@ -1,7 +1,7 @@
 import { CSSObject, MantineTheme } from '@mantine/core';
 
-export interface MantineComponentOverride<Props, Styles extends string, Params> {
-  defaultProps?: (theme: MantineTheme) => Partial<Props>;
-  styles?: (theme: MantineTheme, params: Params) => Partial<Record<Styles, CSSObject>>;
-  variants?: Record<string, (theme: MantineTheme) => Partial<Record<Styles, CSSObject>>>;
+export interface MantineComponentOverride<TProps, TStyles extends string, TParams> {
+  defaultProps?: (theme: MantineTheme) => Partial<TProps>;
+  styles?: (theme: MantineTheme, params: TParams) => Partial<Record<TStyles, CSSObject>>;
+  variants?: Record<string, (theme: MantineTheme) => Partial<Record<TStyles, CSSObject>>>;
 }

@@ -1,19 +1,10 @@
-import { Root } from 'mdast';
 import { create } from 'zustand';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 
 import { API } from '@src/constants';
 
-interface ContentState {
-  content: Root | null;
-  error: any;
-  loading: boolean;
-}
-
-interface ContentActions {
-  fetchContent: (locale: API.Locale) => void;
-}
+import { ContentState, ContentActions } from './content.types';
 
 const defaultState: ContentState = {
   content: null,

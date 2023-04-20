@@ -1,20 +1,10 @@
 import { create } from 'zustand';
-import { ColorScheme } from '@mantine/core';
 import { persist } from 'zustand/middleware';
 
-import { API, STORAGE } from '@src/constants';
+import { STORAGE } from '@src/constants';
 import { useCardsStore } from '@src/stores/cards';
 
-interface SettingsState {
-  colorScheme: ColorScheme;
-  locale: API.Locale | null;
-}
-
-interface SettingsActions {
-  resetSettings: () => void;
-  setSettings: (settings: Partial<SettingsState>) => void;
-  toggleColorScheme: (colorScheme?: ColorScheme) => void;
-}
+import { SettingsState, SettingsActions } from './settings.types';
 
 const defaultState: Omit<SettingsState, 'colorScheme'> = {
   locale: null,

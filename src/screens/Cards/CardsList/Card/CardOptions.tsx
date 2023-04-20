@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Box, Stack, Button, Divider } from '@mantine/core';
 
 import { unpack } from '@src/lib/content';
-import { CardsProgress } from '@src/stores/cards';
+import { CardProgress, CardsProgress } from '@src/stores/cards';
 
 import { useCard } from './Card.context';
 import { cardParser } from './Card.parser';
@@ -10,7 +10,7 @@ import { useStyles } from './CardOptions.styles';
 
 interface CardOptionsProps {
   option: string;
-  progress: CardsProgress[number];
+  progress: CardProgress;
   onProgress: (values: CardsProgress) => void;
 }
 
@@ -18,7 +18,13 @@ export function CardOptions({ option, progress, onProgress }: CardOptionsProps) 
   const card = useCard();
   const { theme, classes } = useStyles();
 
-  const setProgress = (value: string) => onProgress({ [card.id]: { option: value } });
+  const setProgress = (value: string) =>
+    onProgress({
+      [card.id]: {
+        ...progress,
+        option: value,
+      },
+    });
 
   const options = useMemo(
     () =>

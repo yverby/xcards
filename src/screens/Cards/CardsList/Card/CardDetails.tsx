@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { rem, Box, Title, Stack, Accordion } from '@mantine/core';
 
-import { CardsProgress } from '@src/stores/cards';
+import { CardProgress } from '@src/stores/cards';
 
 import { useCard } from './Card.context';
 import { cardParser } from './Card.parser';
 import { useStyles } from './CardDetails.styles';
 
 interface CardDetailsProps {
-  progress: CardsProgress[number];
+  progress: CardProgress;
 }
 
 export function CardDetails({ progress }: CardDetailsProps) {
@@ -32,8 +32,8 @@ export function CardDetails({ progress }: CardDetailsProps) {
       <Accordion
         unstyled
         classNames={classes}
+        className={classes.root}
         transitionDuration={350}
-        className={classes.accordion}
         chevron={<IconPlus size={rem(18)} />}
       >
         <Accordion.Item value="details">

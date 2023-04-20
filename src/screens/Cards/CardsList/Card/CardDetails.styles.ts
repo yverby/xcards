@@ -1,7 +1,7 @@
 import { rem, createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
-  accordion: {
+  root: {
     borderWidth: rem(1),
     borderStyle: 'solid',
     borderColor: 'transparent',

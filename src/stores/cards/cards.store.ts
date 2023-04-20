@@ -1,29 +1,11 @@
-import { Root } from 'mdast';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { select } from '@src/lib/store';
 import { STORAGE } from '@src/constants';
 
+import { CardsState, CardsActions } from './cards.types';
 import { splitContent, parseCard, parseOptions } from './cards.lib';
-
-export type CardContent = ReturnType<typeof parseCard>;
-export type CardsOptions = ReturnType<typeof parseOptions>;
-export type CardsProgress = Record<number, { option: string }>;
-
-interface CardsState {
-  list: CardContent[];
-  cards: CardContent[];
-  options: CardsOptions;
-  progress: CardsProgress;
-}
-
-interface CardsActions {
-  shiftList: () => void;
-  resetCards: () => void;
-  parseCards: (content: Root) => void;
-  setProgress: (values: CardsProgress) => void;
-}
 
 const defaultState: CardsState = {
   list: [],
