@@ -47,7 +47,7 @@ export function CardOptions({ option, progress, onProgress }: CardOptionsProps) 
         return (
           <Button
             key={key}
-            variant="action"
+            variant="secondary"
             classNames={classes}
             onClick={() => setProgress(value)}
             disabled={Boolean(progress.option)}

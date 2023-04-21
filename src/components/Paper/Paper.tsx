@@ -31,27 +31,34 @@ const PaperRoot = forwardRef<HTMLDivElement, PaperProps>(
   }
 );
 
-const PaperHead = createPolymorphicComponent<'header', BoxProps>(
+const PaperHeader = createPolymorphicComponent<'header', BoxProps>(
   forwardRef<HTMLDivElement, BoxProps>(({ styles, className, classNames, ...props }, ref) => {
     const { cx, classes } = useStyles(undefined, { name: 'Paper', styles, classNames });
 
-    return <Box component="header" {...props} ref={ref} className={cx(classes.head, className)} />;
+    return (
+      <Box component="header" {...props} ref={ref} className={cx(classes.header, className)} />
+    );
   })
 );
 
-const PaperBody = createPolymorphicComponent<'div', BoxProps>(
+const PaperSection = createPolymorphicComponent<'section', BoxProps>(
   forwardRef<HTMLDivElement, BoxProps>(({ styles, className, classNames, ...props }, ref) => {
     const { cx, classes } = useStyles(undefined, { name: 'Paper', styles, classNames });
 
-    return <Box {...props} ref={ref} className={cx(classes.body, className)} />;
+    return (
+      <Box component="section" {...props} ref={ref} className={cx(classes.section, className)} />
+    );
   })
 );
 
 export const Paper = createPolymorphicComponent<
   'article',
   PaperProps,
-  { Head: typeof PaperHead; Body: typeof PaperBody }
+  {
+    Header: typeof PaperHeader;
+    Section: typeof PaperSection;
+  }
 >(PaperRoot);
 
-Paper.Head = PaperHead;
-Paper.Body = PaperBody;
+Paper.Header = PaperHeader;
+Paper.Section = PaperSection;

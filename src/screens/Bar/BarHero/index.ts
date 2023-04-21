@@ -1,0 +1,1 @@
+export { BarHero } from './BarHero';

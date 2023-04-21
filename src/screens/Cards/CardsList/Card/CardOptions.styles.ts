@@ -1,16 +1,11 @@
-import { rem, createStyles } from '@mantine/core';
+import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
   root: {
     padding: `${theme.spacing.sm} ${theme.spacing.md}`,
-    borderWidth: rem(1),
-    borderStyle: 'solid',
-    borderColor: 'transparent',
-    backgroundColor: theme.other.colors.prism,
     fontWeight: 'inherit',
 
     '&:disabled': {
-      backgroundColor: theme.other.colors.prism,
       pointerEvents: 'none',
     },
 

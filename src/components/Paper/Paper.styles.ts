@@ -10,14 +10,14 @@ export const useStyles = createStyles((theme) => ({
     overflow: 'hidden',
     userSelect: 'none',
   },
-  head: {
+  header: {
     position: 'sticky',
     top: 0,
     zIndex: 10,
     padding: `${theme.spacing.sm} ${theme.spacing.md}`,
     backgroundColor: theme.fn.rgba(theme.other.colors.paper, 0.96),
   },
-  body: {
+  section: {
     flex: 1,
     padding: theme.spacing.md,
   },

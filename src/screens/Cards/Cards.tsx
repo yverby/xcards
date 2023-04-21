@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Title, Loader, Center } from '@mantine/core';
+import { Title, Center } from '@mantine/core';
 
 import { select, shallow } from '@src/lib/store';
 import { useContentStore } from '@src/stores/content';
@@ -38,7 +38,9 @@ export function Cards() {
     case loading:
       return (
         <Center h="100%">
-          <Loader color="gray" />
+          <Title order={2} size={27}>
+            Loading...
+          </Title>
         </Center>
       );
     case hasList:
@@ -46,7 +48,9 @@ export function Cards() {
     case hasFinish:
       return (
         <Center h="100%">
-          <Title>Finish!</Title>
+          <Title order={2} size={27}>
+            Finish
+          </Title>
         </Center>
       );
     default:

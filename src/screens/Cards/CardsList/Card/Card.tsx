@@ -21,13 +21,13 @@ export function Card({ children, ...value }: CardProps) {
     <Paper w="100%" h="100%">
       {children && (
         <CardProvider value={card}>
-          <Paper.Head>
+          <Paper.Header>
             <Title order={2} size={28}>
               #{card.id}
             </Title>
-          </Paper.Head>
+          </Paper.Header>
 
-          <Paper.Body pt={0}>{children}</Paper.Body>
+          <Paper.Section pt={0}>{children}</Paper.Section>
         </CardProvider>
       )}
     </Paper>
