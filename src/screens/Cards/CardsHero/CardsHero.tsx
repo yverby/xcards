@@ -13,7 +13,7 @@ export function CardsHero() {
 
   return (
     <Container size="xs" w="100%" h="100%" className={classes.root}>
-      <Hero>
+      <Hero showAbout>
         <Group spacing="sm" position="center">
           {(Object.keys(API.LOCALE) as API.Locale[]).map((locale) => (
             <Button

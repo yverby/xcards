@@ -1,11 +1,12 @@
-import { useMemo } from 'react';
-import { Box, Text, Title, Stack, Anchor, Accordion } from '@mantine/core';
+import { Code, Text, Title, Stack, Anchor, Accordion } from '@mantine/core';
 
 import { API } from '@src/constants';
 
+import { useStyles } from './HeroAbout.styles';
+
 const locale = Object.keys(API.LOCALE).length;
 
-const links = Object.entries({
+const { author, library, questions } = Object.entries({
   author: {
     label: 'yverby',
     href: 'https://github.com/yverby/xcards',
@@ -18,23 +19,23 @@ const links = Object.entries({
     label: 'JavaScript Questions',
     href: 'https://github.com/lydiahallie/javascript-questions',
   },
-});
+}).reduce(
+  (acc, [key, { label, href }]) => ({
+    ...acc,
+    [key]: <Anchor href={href}>{label}</Anchor>,
+  }),
+  {} as any
+);
 
-export function HeroAbout() {
-  const { author, library, questions } = useMemo(
-    () =>
-      links.reduce(
-        (acc, [key, { label, href }]) => ({
-          ...acc,
-          [key]: <Anchor href={href}>{label}</Anchor>,
-        }),
-        {} as any
-      ),
-    []
-  );
+interface HeroAboutProps {
+  opened?: boolean;
+}
+
+export function HeroAbout({ opened }: HeroAboutProps) {
+  const { classes } = useStyles();
 
   return (
-    <Accordion>
+    <Accordion classNames={classes} {...(opened && { defaultValue: 'about' })}>
       <Accordion.Item value="about">
         <Accordion.Control>
           <Title order={6}>About</Title>
@@ -42,18 +43,15 @@ export function HeroAbout() {
         <Accordion.Panel>
           <Stack spacing="md">
             <Text>
-              Javascript question cards. In order to change the card, you need to swipe the card to
-              the <strong>left</strong> or <strong>right</strong>.
+              <Code>JavaScript</Code> question cards. Just <Code>swipe</Code> cards{' '}
+              <Code>left</Code> or <Code>right</Code> and choose options.
             </Text>
             <Text>
-              Choose your preferred language from <strong>{locale}</strong> available...
+              <Code>{locale}</Code> translations available.
             </Text>
-            <Box sx={{ opacity: 0.75 }}>
-              <Text size="xs">Based on {questions}</Text>
-              <Text size="xs">
-                Created by {author} with {library}
-              </Text>
-            </Box>
+            <Text size="xs" sx={{ opacity: 0.75 }}>
+              Based on {questions}. Built by {author} using {library}.
+            </Text>
           </Stack>
         </Accordion.Panel>
       </Accordion.Item>

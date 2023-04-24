@@ -32,7 +32,7 @@ export function Cards() {
     case !!error:
       return (
         <Center h="100%">
-          <Title>Oops!</Title>
+          <Title>Oops...</Title>
         </Center>
       );
     case loading:
@@ -49,7 +49,7 @@ export function Cards() {
       return (
         <Center h="100%">
           <Title order={2} size={27}>
-            Finish
+            Finish!
           </Title>
         </Center>
       );

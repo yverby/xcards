@@ -1,15 +1,16 @@
 import { ReactNode } from 'react';
-import { Title, Stack, Divider, useMantineTheme } from '@mantine/core';
+import { Stack, Title, Divider, useMantineTheme } from '@mantine/core';
 
 import { Paper } from '@src/components';
 
 import { HeroAbout } from './HeroAbout';
 
 interface HeroProps {
-  children?: ReactNode;
+  children: ReactNode;
+  showAbout?: boolean;
 }
 
-export function Hero({ children }: HeroProps) {
+export function Hero({ children, showAbout }: HeroProps) {
   const theme = useMantineTheme();
 
   return (
@@ -21,13 +22,9 @@ export function Hero({ children }: HeroProps) {
       </Paper.Header>
       <Paper.Section pt="xs">
         <Stack spacing="md">
-          <HeroAbout />
-          {children && (
-            <>
-              <Divider color={theme.other.colors.prism} />
-              {children}
-            </>
-          )}
+          <HeroAbout opened={showAbout} />
+          <Divider color={theme.other.colors.prism} />
+          {children}
         </Stack>
       </Paper.Section>
     </Paper>
