@@ -11,13 +11,7 @@ function ElementHeading({ children }: any) {
 }
 
 function ElementLink({ url, children }: any) {
-  const { classes } = useStyles();
-
-  return (
-    <Anchor href={url} target="_blank" underline={false} className={classes.link}>
-      {children}
-    </Anchor>
-  );
+  return <Anchor href={url}>{children}</Anchor>;
 }
 
 function ElementInlineCode({ children }: any) {

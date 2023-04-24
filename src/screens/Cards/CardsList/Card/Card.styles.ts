@@ -1,9 +1,6 @@
 import { em, rem, createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
-  link: {
-    color: theme.other.colors.success,
-  },
   code: {
     borderWidth: rem(1),
     borderStyle: 'solid',

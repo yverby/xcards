@@ -1,5 +1,5 @@
 import { memo, ReactNode } from 'react';
-import { Title, Group } from '@mantine/core';
+import { Badge, Title, Group } from '@mantine/core';
 
 import { Paper } from '@src/components';
 
@@ -27,9 +27,9 @@ export function Card({ children, progress, ...value }: CardProps) {
               </Title>
 
               {progress.option && (
-                <Title order={5} sx={{ opacity: 0.25 }}>
+                <Badge size="lg" radius={8} sx={{ opacity: 0.75 }}>
                   {new Date((progress.time ?? 0) * 1000).toISOString().slice(14, 19)}
-                </Title>
+                </Badge>
               )}
             </Group>
           </Paper.Header>

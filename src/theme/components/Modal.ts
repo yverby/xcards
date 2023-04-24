@@ -19,6 +19,7 @@ export const Modal: MantineComponentOverride<ModalProps, ModalStylesNames, void>
         padding: theme.spacing.md,
       },
       content: {
+        display: 'flex',
         flex: 'auto',
         width: '100%',
         maxWidth: `calc(${theme.breakpoints.xs} - ${theme.spacing.xl} * 3)`,
@@ -27,6 +28,9 @@ export const Modal: MantineComponentOverride<ModalProps, ModalStylesNames, void>
         backgroundColor: 'transparent',
       },
       body: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
         maxHeight: '100%',
         padding: 0,
         overflow: 'hidden',

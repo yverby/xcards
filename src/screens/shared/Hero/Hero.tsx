@@ -3,6 +3,8 @@ import { Title, Stack, Divider, useMantineTheme } from '@mantine/core';
 
 import { Paper } from '@src/components';
 
+import { HeroAbout } from './HeroAbout';
+
 interface HeroProps {
   children?: ReactNode;
 }
@@ -17,8 +19,9 @@ export function Hero({ children }: HeroProps) {
           XCards
         </Title>
       </Paper.Header>
-      <Paper.Section pt={0}>
+      <Paper.Section pt="xs">
         <Stack spacing="md">
+          <HeroAbout />
           {children && (
             <>
               <Divider color={theme.other.colors.prism} />
