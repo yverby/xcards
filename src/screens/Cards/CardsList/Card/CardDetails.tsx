@@ -2,19 +2,13 @@ import { useMemo } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { rem, Box, Title, Stack, Accordion } from '@mantine/core';
 
-import { CardProgress } from '@src/stores/cards';
-
 import { useCard } from './Card.context';
 import { cardParser } from './Card.parser';
 import { useStyles } from './CardDetails.styles';
 
-interface CardDetailsProps {
-  progress: CardProgress;
-}
-
-export function CardDetails({ progress }: CardDetailsProps) {
-  const card = useCard();
+export function CardDetails() {
   const { classes } = useStyles();
+  const { progress, ...card } = useCard();
 
   const details = useMemo(() => cardParser.getJSX(card.details), [card.details]);
 

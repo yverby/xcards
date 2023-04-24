@@ -11,9 +11,9 @@ import { CardsList } from './CardsList';
 
 export function Cards() {
   const { hasList, hasFinish } = useCardsStatus();
+  const { parseCards, resetCards } = useCardsStore(select(['parseCards', 'resetCards']), shallow);
 
   const locale = useSettingsStore((state) => state.locale);
-  const parseCards = useCardsStore((state) => state.parseCards);
 
   const { error, content, loading, fetchContent } = useContentStore(
     select(['error', 'loading', 'content', 'fetchContent']),
@@ -21,7 +21,7 @@ export function Cards() {
   );
 
   useEffect(() => {
-    locale && fetchContent(locale);
+    locale ? fetchContent(locale) : resetCards();
   }, [locale]);
 
   useEffect(() => {

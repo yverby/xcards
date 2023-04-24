@@ -1,8 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { Box, Stack, Button, Divider } from '@mantine/core';
+import { useWindowEvent, useDocumentVisibility } from '@mantine/hooks';
 
 import { unpack } from '@src/lib/content';
-import { CardProgress, CardsProgress } from '@src/stores/cards';
+import { CardsProgress } from '@src/stores/cards';
+import { useTimer, useEvent } from '@src/lib/hooks';
 
 import { useCard } from './Card.context';
 import { cardParser } from './Card.parser';
@@ -10,21 +12,32 @@ import { useStyles } from './CardOptions.styles';
 
 interface CardOptionsProps {
   option: string;
-  progress: CardProgress;
   onProgress: (values: CardsProgress) => void;
 }
 
-export function CardOptions({ option, progress, onProgress }: CardOptionsProps) {
-  const card = useCard();
+export function CardOptions({ option, onProgress }: CardOptionsProps) {
   const { theme, classes } = useStyles();
+  const { progress, ...card } = useCard();
 
-  const setProgress = (value: string) =>
-    onProgress({
-      [card.id]: {
-        ...progress,
-        option: value,
-      },
-    });
+  const visible = useDocumentVisibility();
+
+  const time = useTimer(1000, {
+    pause: [!!progress.option, visible === 'hidden'].some((cond) => cond),
+  });
+
+  const setProgress = useEvent((value?: string) => {
+    if (!progress.option) {
+      onProgress({
+        [card.id]: {
+          option: value ?? progress.option,
+          time: (progress.time ?? 1) + time(),
+        },
+      });
+    }
+  });
+
+  useEffect(() => setProgress, []);
+  useWindowEvent('beforeunload', () => setProgress());
 
   const options = useMemo(
     () =>

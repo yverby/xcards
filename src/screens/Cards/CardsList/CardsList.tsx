@@ -18,8 +18,6 @@ export function CardsList() {
   );
 
   const card = { ...list[0] };
-  const option = options[card.id];
-  const _progress = { ...progress[card.id] };
 
   return (
     <Carousel loop withControls={false} classNames={classes} onSlideChange={setActive}>
@@ -33,17 +31,13 @@ export function CardsList() {
           >
             {(styles) => (
               <Container size="xs" w="100%" h="100%" style={styles}>
-                <Card {...card}>
+                <Card {...card} progress={{ ...progress[card.id] }}>
                   {slide === active && (
                     <Stack h="100%" spacing="md" justify="space-between">
                       <Card.Body />
                       <Stack spacing="md">
-                        <Card.Details progress={_progress} />
-                        <Card.Options
-                          option={option}
-                          progress={_progress}
-                          onProgress={setProgress}
-                        />
+                        <Card.Details />
+                        <Card.Options option={options[card.id]} onProgress={setProgress} />
                       </Stack>
                     </Stack>
                   )}

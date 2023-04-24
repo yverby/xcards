@@ -8,8 +8,8 @@ import { useCardsStore, useCardsStatus } from '@src/stores/cards';
 import { useStyles } from './BarProgress.styles';
 
 export function BarProgress() {
-  const { hasList } = useCardsStatus();
-  const { theme, classes } = useStyles({ visible: hasList });
+  const { hasList, hasFinish } = useCardsStatus();
+  const { theme, classes } = useStyles({ visible: hasList || hasFinish });
 
   const { list, cards, options, progress } = useCardsStore(
     select(['list', 'cards', 'options', 'progress']),
@@ -22,7 +22,7 @@ export function BarProgress() {
     }
 
     const [falsy, truthy] = partition(
-      Object.keys(progress),
+      Object.keys(progress).filter((id: any) => progress[id].option),
       (id: any) => progress[id].option !== options[id]
     );
 

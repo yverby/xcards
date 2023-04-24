@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { STORAGE } from '@src/constants';
-import { useCardsStore } from '@src/stores/cards';
 
 import { SettingsState, SettingsActions } from './settings.types';
 
@@ -27,14 +26,6 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
         }));
       },
     }),
-    {
-      name: STORAGE.KEYS.SETTINGS,
-    }
+    { name: STORAGE.KEYS.SETTINGS }
   )
 );
-
-useSettingsStore.subscribe((state, prevState) => {
-  if (!state.locale && prevState.locale) {
-    useCardsStore.getState().resetCards();
-  }
-});

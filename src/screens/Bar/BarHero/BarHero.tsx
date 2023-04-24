@@ -3,17 +3,19 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconMenu, IconReload } from '@tabler/icons-react';
 
 import { Hero } from '@src/screens/shared';
-import { useCardsStatus } from '@src/stores/cards';
 import { useSettingsStore } from '@src/stores/settings';
+import { useCardsStore, useCardsStatus } from '@src/stores/cards';
 
 export function BarHero() {
   const [opened, { open, close }] = useDisclosure(false);
 
   const { hasList, hasFinish } = useCardsStatus();
+  const resetCards = useCardsStore((state) => state.resetCards);
   const resetSettings = useSettingsStore((state) => state.resetSettings);
 
   const reset = () => {
     close();
+    resetCards();
     resetSettings();
   };
 

@@ -26,7 +26,7 @@ export const useCardsStore = create<CardsState & CardsActions>()(
           const groups = splitContent(content);
 
           const cards = groups.map((group) => parseCard(group));
-          const list = cards.filter((card) => !state.progress[card.id]);
+          const list = cards.filter((card) => !state.progress[card.id]?.option);
 
           const options = parseOptions(cards);
 
@@ -36,7 +36,7 @@ export const useCardsStore = create<CardsState & CardsActions>()(
       shiftList() {
         set((state) => {
           const [card, ...cards] = state.list;
-          const list = state.progress[card.id] ? cards : [...cards, card];
+          const list = state.progress[card.id]?.option ? cards : [...cards, card];
 
           return { list };
         });

@@ -6,6 +6,7 @@ export type CardContent = ReturnType<typeof parseCard>;
 export type CardsOptions = ReturnType<typeof parseOptions>;
 
 export interface CardProgress {
+  time?: number;
   option?: string;
 }
 
